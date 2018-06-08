@@ -1,0 +1,4 @@
+# Exclude files downloaded/created by our scripts:
+margrit/
+pyinstaller/
+*.zip
