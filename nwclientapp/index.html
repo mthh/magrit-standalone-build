@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Magrit</title>
+</head>
+<body>
+<div style="text-align: center;">
+	<h1>Loading ...</h1>
+</div>
+<p id="foo">
+</p>
+<script>
+var spawn = require('child_process').spawn;
+var child = spawn(
+	'Magrit.exe',
+    { cwd: 'Magrit\\dist\\Magrit' },
+	function(error, stdout, stderr) {
+		document.getElementById('foo').innerHTML += "stdout: " + stdout;
+		document.getElementById('foo').innerHTML += "stderr: " + stderr;
+		console.log('stdout: ' + stdout);
+		console.log('stderr: ' + stderr);
+		if (error !== null) {
+			console.log('exec error: ' + error)
+		}
+	});
+var nw = require('nw.gui');
+var win = nw.Window.get();
+win.maximize();
+setTimeout(() => {
+	window.location = 'http://localhost:9999/';
+}, 225);
+win.on('close', function() {
+	child.kill('SIGTERM');
+	child.kill('SIGKILL');
+	child.kill('SIGINT');
+	this.hide();
+	this.close(true);
+});
+</script>
+</body>
+</html>

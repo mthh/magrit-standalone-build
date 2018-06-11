@@ -1,4 +1,5 @@
 # Exclude files downloaded/created by our scripts:
 magrit/
 pyinstaller/
+magrit_standalone/
 *.zip
