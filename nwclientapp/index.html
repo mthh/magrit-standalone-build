@@ -12,8 +12,8 @@
 <script>
 var spawn = require('child_process').spawn;
 var child = spawn(
-	'Magrit.exe',
-    { cwd: 'Magrit\\dist\\Magrit' },
+	'./Magrit',
+    { cwd: './Magrit/dist/Magrit/', detached: true },
 	function(error, stdout, stderr) {
 		document.getElementById('foo').innerHTML += "stdout: " + stdout;
 		document.getElementById('foo').innerHTML += "stderr: " + stderr;

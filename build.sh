@@ -1,27 +1,37 @@
-git clone https://github.com/mthh/magrit
-git clone https://github.com/pyinstaller/pyinstaller
-curl -O https://nodejs.org/dist/v8.11.2/node-v8.11.2-win-x64.zip
-curl -O https://dl.nwjs.io/v0.31.1/nwjs-v0.31.1-win-x64.zip
+#! /bin/bash
+sudo -H pip3 install https://github.com/pyinstaller/pyinstaller/archive/develop.zip
+if [ ! -d "magrit" ];
+then
+    git clone https://github.com/mthh/magrit
+fi
+mkdir pyinstaller
+if [ ! -f "node-v8.11.2-linux-x64.tar.xz" ];
+then
+   curl -O https://nodejs.org/dist/v8.11.2/node-v8.11.2-linux-x64.tar.xz
+fi
+if [ ! -f "nwjs-sdk-v0.31.1-linux-x64.tar.gz" ];
+then
+   curl -O https://dl.nwjs.io/v0.31.1/nwjs-sdk-v0.31.1-linux-x64.tar.gz
+fi
 cp Magrit.spec pyinstaller/Magrit.spec
 cd magrit
 cd magrit_app
-unzip ../../node-v8.11.2-win-x64.zip
-cd node-v8.11.2-win-x64/
-./npm.cmd install topojson
+tar xvf ../../node-v8.11.2-linux-x64.tar.xz
+cd node-v8.11.2-linux-x64/
+./bin/npm install topojson
 cd ../..
-pip install -r requirements/common.txt
-python setup.py build_ext --inplace
+sudo -H pip3 install -r requirements/common.txt
+python3 setup.py build_ext --inplace
 cd ../pyinstaller
-python pyinstaller.py --clean --onefile Magrit.spec
-# mv Magrit/dist/Magrit/osgeo._gdal.pyd Magrit/dist/Magrit/_gdal.pyd
-cp ../dlls/spatialindex_c.dll Magrit/dist/Magrit/
-cp ../dlls/spatialindex-64.dll Magrit/dist/Magrit/
+pyinstaller --clean --onefile Magrit.spec
+mv dist/Magrit/share/gdal/2.2/* dist/Magrit/share/gdal
+rm -rf dist/Magrit/share/gdal/2.2/
 cd ..
-unzip nwjs-v0.31.1-win-x64.zip
-cp nwclientapp/* nwjs-v0.31.1-win-x64
+tar xvzf nwjs-sdk-v0.31.1-linux-x64.tar.gz
+cp nwclientapp/* nwjs-sdk-v0.31.1-linux-x64
 mkdir magrit_standalone
-mv nwjs-v0.31.1-win-x64/* magrit_standalone
-rm -rf nwjs-v0.31.1-win-x64/
-cp -r pyinstaller/Magrit magrit_standalone/
-mv magrit_standalone/nw.exe magrit_standalone/launch_magrit.exe
-rm -rf *.zip
+mv nwjs-sdk-v0.31.1-linux-x64/* magrit_standalone
+rm -rf nwjs-sdk-v0.31.1-linux-x64/
+mkdir magrit_standalone/Magrit
+cp -r pyinstaller/* magrit_standalone/Magrit/
+
