@@ -23,7 +23,7 @@ cd ../..
 sudo -H pip3 install -r requirements/common.txt
 python3 setup.py build_ext --inplace
 cd ../pyinstaller
-pyinstaller --clean --onefile Magrit.spec
+pyinstaller --clean --noconfirm Magrit.spec
 mv dist/Magrit/share/gdal/2.2/* dist/Magrit/share/gdal
 rm -rf dist/Magrit/share/gdal/2.2/
 cd ..
