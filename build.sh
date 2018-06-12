@@ -12,8 +12,7 @@ cd ../..
 pip install -r requirements/common.txt
 python setup.py build_ext --inplace
 cd ../pyinstaller
-python pyinstaller.py --clean --onefile Magrit.spec
-# mv Magrit/dist/Magrit/osgeo._gdal.pyd Magrit/dist/Magrit/_gdal.pyd
+python pyinstaller.py --clean --noconfirm Magrit.spec
 cp ../dlls/spatialindex_c.dll Magrit/dist/Magrit/
 cp ../dlls/spatialindex-64.dll Magrit/dist/Magrit/
 cd ..
