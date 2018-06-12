@@ -30,9 +30,7 @@ setTimeout(() => {
 	window.location = 'http://localhost:9999/';
 }, 225);
 win.on('close', function() {
-	child.kill('SIGTERM');
-	child.kill('SIGKILL');
-	child.kill('SIGINT');
+	process.kill(-child.pid);
 	this.hide();
 	this.close(true);
 });
