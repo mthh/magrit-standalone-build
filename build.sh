@@ -9,9 +9,9 @@ if [ ! -f "node-v8.11.2-linux-x64.tar.xz" ];
 then
    curl -O https://nodejs.org/dist/v8.11.2/node-v8.11.2-linux-x64.tar.xz
 fi
-if [ ! -f "nwjs-sdk-v0.31.1-linux-x64.tar.gz" ];
+if [ ! -f "nwjs-sdk-v0.31.2-linux-x64.tar.gz" ];
 then
-   curl -O https://dl.nwjs.io/v0.31.1/nwjs-sdk-v0.31.1-linux-x64.tar.gz
+   curl -O https://dl.nwjs.io/v0.31.2/nwjs-sdk-v0.31.2-linux-x64.tar.gz
 fi
 cp Magrit.spec pyinstaller/Magrit.spec
 cd magrit
@@ -27,11 +27,10 @@ pyinstaller --clean --noconfirm Magrit.spec
 mv dist/Magrit/share/gdal/2.2/* dist/Magrit/share/gdal
 rm -rf dist/Magrit/share/gdal/2.2/
 cd ..
-tar xvzf nwjs-sdk-v0.31.1-linux-x64.tar.gz
-cp nwclientapp/* nwjs-sdk-v0.31.1-linux-x64
+tar xvzf nwjs-sdk-v0.31.2-linux-x64.tar.gz
+cp nwclientapp/* nwjs-sdk-v0.31.2-linux-x64
 mkdir magrit_standalone
-mv nwjs-sdk-v0.31.1-linux-x64/* magrit_standalone
-rm -rf nwjs-sdk-v0.31.1-linux-x64/
+mv nwjs-sdk-v0.31.2-linux-x64/* magrit_standalone
+rm -rf nwjs-sdk-v0.31.2-linux-x64/
 mkdir magrit_standalone/Magrit
 cp -r pyinstaller/* magrit_standalone/Magrit/
-
