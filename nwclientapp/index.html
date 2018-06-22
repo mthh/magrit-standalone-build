@@ -28,11 +28,16 @@ var win = nw.Window.get();
 win.maximize();
 setTimeout(() => {
 	window.location = 'http://localhost:9999/';
-}, 225);
+}, 1800);
 win.on('close', function() {
 	process.kill(-child.pid);
 	this.hide();
 	this.close(true);
+});
+win.on('closed', function() {
+	this.hide();
+	this.close(true);
+    process.exit();
 });
 </script>
 </body>
